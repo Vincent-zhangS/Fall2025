@@ -1,9 +1,11 @@
+var topZ = 0;
+
 window.onload = function () {
-    
-//3.Add button(done in class)
+
+ //3.Add Button(done in class)
     var add = document.getElementById("add");
     add.onclick = addSquare;
-//3. Color change 
+//3.Change Color
     var colorChange = document.getElementById('color');
     colorChange.onclick = changeAllColors;
 
@@ -33,8 +35,29 @@ function addSquare() {
     newSquare.style.top = parseInt(Math.random() * 251) + "px";
 
 //5.Randomizing Square
-newSquare.style.height = parseInt(Math.random() * 11) + 45 + "px";
-newSquare.style.width = parseInt(Math.random() * 11) + 45 + "px";
+newSquare.style.height = parseInt(Math.random() * 10) + 45 + "px";
+newSquare.style.width = parseInt(Math.random() * 10) + 45 + "px";
     newSquare.style.backgroundColor = getRandomColor();
     squarearea.appendChild(newSquare);
+    newSquare.onclick = bringFrontOrRemove;
+}
+
+//4.on click behavoir
+function bringFrontOrRemove(){
+    if(parseInt(this.style.zIndex) == topZ){
+        this.remove();
+    }
+    else{
+        topZ++;
+        this.style.zIndex = topZ;
+    }
+}
+
+//2. Change Colors
+function changeAllColors(){
+    var squareArea = document.getElementById("squarearea");
+    var allSquares = Array.from(squareArea.querySelectorAll('.square'));
+    for (let i = 0; i< allSquares.length; i++){
+        allSquares[i].style.backgroundColor = getRandomColor();
+    }
 }
